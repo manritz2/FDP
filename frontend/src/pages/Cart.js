@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { removeFromCart, updateQuantity } from '../store/slices/cartSlice';
+import { removeFromCart } from '../store/slices/cartSlice';
 import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
@@ -21,4 +21,25 @@ const Cart = () => {
         <div key={item.id} className="flex justify-between border p-4 mb-2">
           <span>{item.name} - Qty: {item.quantity}</span>
           <span>${item.price * item.quantity}</span>
-         
+          <button 
+            onClick={() => dispatch(removeFromCart(item.id))}
+            className="bg-red-500 text-white px-3 py-1"
+          >
+            Remove
+          </button>
+        </div>
+      ))}
+      <div className="mt-4 text-xl font-bold">
+        Total: ${total}
+      </div>
+      <button 
+        onClick={handleCheckout}
+        className="bg-green-500 text-white px-6 py-2 mt-4"
+      >
+        Checkout
+      </button>
+    </div>
+  );
+};
+
+export default Cart;
