@@ -1,0 +1,8 @@
+# This file prevents Railway from using Docker build
+# Railway should use NIXPACKS instead
+
+# Ignore everything
+*
+.*
+
+# This effectively disables Docker builds

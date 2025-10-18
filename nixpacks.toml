@@ -1,14 +1,14 @@
 # Nixpacks configuration for Railway
-# This ensures Railway uses auto-detection instead of Docker
+# Forces Railway to use Nixpacks instead of Docker
 
 [phases.setup]
-nixPkgs = ["nodejs-18_x", "npm-9_x"]
+nixPkgs = ["nodejs-18_x"]
 
 [phases.install]
-cmds = ["npm install"]
+cmds = ["npm ci --prefer-offline --no-audit || npm install"]
 
 [phases.build]
-cmds = ["npm run build"]
+cmds = ["npm run build --if-present"]
 
 [start]
-cmd = "npx serve -s build -l $PORT"
+cmd = "npm start"
