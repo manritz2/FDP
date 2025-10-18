@@ -38,6 +38,11 @@ Thumbs.db
 .git/
 .gitignore
 
+# Docker files (we use Nixpacks instead)
+Dockerfile
+**/Dockerfile
+.dockerignore
+
 # Documentation (optional - uncomment to exclude)
 # *.md
 # docs/
