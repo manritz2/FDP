@@ -1,0 +1,9 @@
+# Nixpacks configuration for Backend service
+[phases.setup]
+nixPkgs = ["nodejs"]
+
+[phases.install]
+cmds = ["npm install"]
+
+[start]
+cmd = "npm start"
