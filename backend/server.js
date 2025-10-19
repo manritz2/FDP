@@ -17,6 +17,19 @@ mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.log(err));
 
+// Health check route
+app.get('/', (req, res) => {
+  res.json({ 
+    message: '⚓ Luffy Food Delivery API is running!', 
+    status: 'healthy',
+    endpoints: {
+      auth: '/api/auth',
+      items: '/api/items',
+      orders: '/api/orders'
+    }
+  });
+});
+
 // Routes
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/items', require('./routes/items'));
