@@ -1,26 +1,57 @@
 const express = require('express');
 const router = express.Router();
+const FoodItem = require('../models/FoodItem');
+const Restaurant = require('../models/Restaurant');
 
-// Sample items
-let foodItems = [
-  { id: 1, name: 'Pizza', price: 299 },
-  { id: 2, name: 'Burger', price: 149 },
-  { id: 3, name: 'Pasta', price: 199 }
-];
+// GET all items (with optional filters)
+router.get('/', async (req, res) => {
+  try {
+    const { category, restaurant, isVeg, cuisine } = req.query;
+    const filter = { isAvailable: true };
+    
+    if (category) filter.category = category;
+    if (restaurant) filter.restaurant = restaurant;
+    if (isVeg) filter.isVeg = isVeg === 'true';
+    if (cuisine) filter.cuisine = cuisine;
 
-// GET all items
-router.get('/', (req, res) => {
-  res.json(foodItems);
+    const items = await FoodItem.find(filter)
+      .populate('restaurant', 'name deliveryTime rating')
+      .sort({ popular: -1, rating: -1 });
+    
+    res.json(items);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
-// POST item (optional: admin only, need JWT auth middleware)
-router.post('/', (req, res) => {
-  const { name, price } = req.body;
-  if (!name || !price) return res.status(400).json({ error: 'Name and price required' });
+// GET single item
+router.get('/:id', async (req, res) => {
+  try {
+    const item = await FoodItem.findById(req.params.id)
+      .populate('restaurant');
+    
+    if (!item) {
+      return res.status(404).json({ message: 'Item not found' });
+    }
+    
+    res.json(item);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 
-  const newItem = { id: foodItems.length + 1, name, price };
-  foodItems.push(newItem);
-  res.json(newItem);
+// GET popular items
+router.get('/popular/all', async (req, res) => {
+  try {
+    const items = await FoodItem.find({ popular: true, isAvailable: true })
+      .populate('restaurant', 'name deliveryTime rating')
+      .limit(10)
+      .sort({ rating: -1 });
+    
+    res.json(items);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
 module.exports = router;
