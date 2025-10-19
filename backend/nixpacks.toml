@@ -1,9 +1,11 @@
-# Nixpacks configuration for Backend service
 [phases.setup]
-nixPkgs = ["nodejs"]
+nixPkgs = ["nodejs-18_x"]
 
 [phases.install]
-cmds = ["npm install"]
+cmds = ["npm ci --omit=dev || npm install --omit=dev"]
+
+[phases.build]
+cmds = ["echo 'No build step required'"]
 
 [start]
-cmd = "npm start"
+cmd = "node server.js"
