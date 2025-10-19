@@ -1,6 +1,5 @@
-# Nixpacks configuration for Frontend service
 [phases.setup]
-nixPkgs = ["nodejs"]
+nixPkgs = ["nodejs-18_x"]
 
 [phases.install]
 cmds = ["npm install"]
