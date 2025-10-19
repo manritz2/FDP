@@ -2,10 +2,10 @@
 nixPkgs = ["nodejs-18_x"]
 
 [phases.install]
-cmds = ["npm ci --omit=dev || npm install --omit=dev"]
+cmds = ["npm install --production --no-audit --prefer-offline"]
 
 [phases.build]
-cmds = ["echo 'No build step required'"]
+cmds = ["echo 'Backend ready'"]
 
 [start]
 cmd = "node server.js"
