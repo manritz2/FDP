@@ -29,9 +29,80 @@ For manual setup or additional details, follow [DEPLOYMENT_GUIDE.md](./DEPLOYMEN
 
 ## Troubleshooting
 
-- **Frontend cannot connect to the backend:** Verify `REACT_APP_API_URL` includes the backend URL and `/api` path.
-- **CORS errors:** Verify `FRONTEND_URL` matches the deployed frontend URL exactly.
-- **Database connection fails:** Check `MONGO_URI`, database credentials, and MongoDB Atlas network access.
-- **Build or startup fails:** Review the provider's build logs and confirm each service's root directory and commands match the repository configuration.
+### **Build Fails:**
+- Check Render build logs
+- Ensure `package.json` has all dependencies
+- Verify Node version compatibility
 
-Deployment pricing, free-tier limits, and provider features can change; confirm current terms with the provider.
+### **Frontend Can't Connect to Backend:**
+- Verify `REACT_APP_API_URL` is correct
+- Check backend is running (green in Render)
+- Review backend logs for errors
+
+### **CORS Errors:**
+- Verify `FRONTEND_URL` is set in backend
+- Check CORS configuration in `server.js`
+- Ensure URLs include `https://` (not `http://`)
+
+### **Database Connection Fails:**
+- Verify `MONGO_URI` is correct
+- Check MongoDB Atlas allows connections from anywhere (0.0.0.0/0)
+- Review backend logs for connection errors
+
+---
+
+## Alternative Platforms
+
+If Render doesn't work, try:
+
+### **Railway** ([railway.app](https://railway.app))
+- Similar to Render
+- Automatic detection of services
+- Easy environment variable management
+
+### **Heroku** ([heroku.com](https://heroku.com))
+- Classic platform (no longer free)
+- Requires Procfile for deployment
+
+### **Vercel** ([vercel.com](https://vercel.com))
+- Great for frontend (Next.js/React)
+- Backend as serverless functions
+
+---
+
+## Quick Commands Reference
+
+### **Git Commands:**
+```bash
+git init
+git add .
+git commit -m "Initial commit"
+git branch -M main
+git remote add origin YOUR_REPO_URL
+git push -u origin main
+```
+
+### **Local Testing:**
+```bash
+# Backend
+cd backend
+npm install
+npm run dev
+
+# Frontend (new terminal)
+cd frontend
+npm install
+npm start
+```
+
+---
+
+## Need Help?
+
+- Check [DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md) for detailed instructions
+- Review Render documentation: [render.com/docs](https://render.com/docs)
+- Check deployment logs in Render dashboard
+
+---
+
+**Good luck with your deployment! 🎉**
